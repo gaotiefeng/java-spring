@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController{
 
     @Autowired
     private UserService userService;
@@ -43,6 +43,14 @@ public class UserController {
 
         userService.add("mingzi","12435454545");
         return "3222323";
+    }
+
+    @RequestMapping(value = ("/list"), method = RequestMethod.GET)
+    public HashMap list() {
+
+        String[] data = {};
+
+        return this.success(200,"list is success",data);
     }
 
 }
