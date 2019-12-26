@@ -9,6 +9,10 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
     public int userServiceAdd(String name, String mobile) {
         int count = userDao.userAdd(name, mobile);
         System.out.println("add方法被执行完毕");

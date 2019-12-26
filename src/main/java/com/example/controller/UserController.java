@@ -10,8 +10,10 @@ import com.example.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.Result;
+import java.lang.ref.ReferenceQueue;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 @RestController
@@ -65,6 +67,11 @@ public class UserController extends BaseController{
     @RequestMapping(value = ("/list"), method = RequestMethod.GET)
     @ResponseBody
     public HashMap list(HttpServletRequest Request, HttpServletResponse Response) {
+
+        int id = Integer.parseInt(Request.getParameter("id"));
+
+        Map list = userService.getUserDao().userFirst(id);
+
         int[][] ns = {
                 { 1, 2, 3, 4 },
                 { 5, 6, 7, 8 },
@@ -75,6 +82,7 @@ public class UserController extends BaseController{
         result.put("code", "0");
         result.put("request",Request.getQueryString());
         result.put("items",ns);
+        result.put("list",list);
 
         return result;
     }
