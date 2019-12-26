@@ -3,10 +3,13 @@ package com.example.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.Result;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -39,18 +42,41 @@ public class UserController extends BaseController{
      * @return
      */
     @RequestMapping(value = ("/register"), method = RequestMethod.GET)
-    public String register() {
+    @ResponseBody
+    public HashMap register(HttpServletRequest Request, HttpServletResponse Response) {
 
-        userService.add("mingzi","12435454545");
-        return "3222323";
+        String name = Request.getParameter("name");
+        String mobile = Request.getParameter("mobile");
+
+        int count = userService.userServiceAdd(name,mobile);
+
+        String message = "注册失败";
+        if(count > 0) {
+            message = "注册成功";
+        }
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        result.put("code", "200");
+        result.put("request",Request.getQueryString());
+        result.put("message",message);
+
+        return result;
     }
 
     @RequestMapping(value = ("/list"), method = RequestMethod.GET)
-    public HashMap list() {
+    @ResponseBody
+    public HashMap list(HttpServletRequest Request, HttpServletResponse Response) {
+        int[][] ns = {
+                { 1, 2, 3, 4 },
+                { 5, 6, 7, 8 },
+                { 9, 10, 11, 12 }
+        };
+        HashMap<String, Object> result = new HashMap<String, Object>();
 
-        String[] data = {};
+        result.put("code", "0");
+        result.put("request",Request.getQueryString());
+        result.put("items",ns);
 
-        return this.success(200,"list is success",data);
+        return result;
     }
 
 }

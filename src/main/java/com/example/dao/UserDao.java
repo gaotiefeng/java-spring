@@ -10,9 +10,15 @@ public class UserDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public void addUser(String name, String mobile) {
+    public int userAdd(String name, String mobile) {
         String sql = "insert into user(name, mobile) VALUES (?,?);";
-        jdbcTemplate.update(sql, name, mobile);
-        System.out.println("添加数据成功...");
+        int count = jdbcTemplate.update(sql, name, mobile);
+        System.out.println("添加数据成功..."+count);
+        return count;
+    }
+
+    public void userList()
+    {
+
     }
 }
