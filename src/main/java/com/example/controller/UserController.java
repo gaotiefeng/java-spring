@@ -1,7 +1,9 @@
 package com.example.controller;
 
 import com.example.redis.StringRedis;
+import com.example.thread.MessageThread;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,7 +20,8 @@ public class UserController extends BaseController{
     @Autowired
     private UserService userService;
 
-    private StringRedis stringRedis;
+    @Autowired
+    private  StringRedis stringRedis;
 
     /**
      *
@@ -71,14 +74,14 @@ public class UserController extends BaseController{
 
         String key = "id"+id;
         String val = "this is id "+id;
-
-        //boolean redis = stringRedis.set(key,val);
+        stringRedis.set(key,val);
 
         Map<String, Object> result = new HashMap<String, Object>();
 
         result.put("code", "0");
         result.put("request",Request.getQueryString());
         result.put("items",list);
+
 
         return result;
     }
