@@ -1,14 +1,10 @@
 package com.example.dao;
 
-import com.example.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +13,13 @@ public class UserDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    public List userMobile(String mobile) {
+        String sql = "select * from user where mobile = ?;";
+        List list = jdbcTemplate.queryForList(sql, mobile);
+        System.out.println(mobile + "查询..."+list);
+        return list;
+    }
 
     public Map userFirst(int id)
     {
