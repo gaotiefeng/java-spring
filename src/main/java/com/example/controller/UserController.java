@@ -66,20 +66,17 @@ public class UserController extends BaseController{
     @ResponseBody
     public Map list(HttpServletRequest Request, HttpServletResponse Response) {
 
-        int id = Integer.parseInt(Request.getParameter("id"));
+        int offset = Integer.parseInt(Request.getParameter("offset"));
 
-        Map list = userService.getUserDao().userFirst(id);
+        int limit = Integer.parseInt(Request.getParameter("limit"));
 
-        String key = "id"+id;
-        String val = "this is id "+id;
-        stringRedis.set(key,val);
+        List list = userService.getUserDao().userList(offset, limit);
 
         Map<String, Object> result = new HashMap<String, Object>();
 
         result.put("code", "0");
         result.put("request",Request.getQueryString());
         result.put("items",list);
-
 
         return result;
     }

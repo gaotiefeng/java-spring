@@ -28,9 +28,11 @@ public class UserDao {
         return list;
     }
 
-    public void userList(int offset, int limit)
+    public List userList(int offset, int limit)
     {
-
+        String sql = "select * from user where offset = ? and limit = ?;";
+        List list = jdbcTemplate.queryForList(sql, offset, limit);
+        return list;
     }
 
     public int userAdd(String name, String mobile) {
