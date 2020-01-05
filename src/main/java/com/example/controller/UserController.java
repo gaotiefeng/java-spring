@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.redis.StringRedis;
+import com.example.service.http.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -65,6 +66,13 @@ public class UserController extends BaseController{
     @RequestMapping(value = ("/list"), method = RequestMethod.GET)
     @ResponseBody
     public Map list(HttpServletRequest Request, HttpServletResponse Response) {
+
+        try {
+            Client client = new Client();
+            client.client();
+        }catch (Exception e) {
+            System.out.println(e);
+        }
 
         int offset = Integer.parseInt(Request.getParameter("offset"));
 

@@ -30,7 +30,8 @@ public class UserDao {
 
     public List userList(int offset, int limit)
     {
-        String sql = "select * from user where offset = ? and limit = ?;";
+
+        String sql = "select * from user where id >=( select id from user order by id limit ?,1 ) limit ?;";
         List list = jdbcTemplate.queryForList(sql, offset, limit);
         return list;
     }
