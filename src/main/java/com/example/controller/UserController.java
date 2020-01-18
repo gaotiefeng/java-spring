@@ -67,12 +67,6 @@ public class UserController extends BaseController{
     @ResponseBody
     public Map list(HttpServletRequest Request, HttpServletResponse Response) {
 
-        try {
-            Client client = new Client();
-            client.client();
-        }catch (Exception e) {
-            System.out.println(e);
-        }
 
         int offset = Integer.parseInt(Request.getParameter("offset"));
 
@@ -89,5 +83,34 @@ public class UserController extends BaseController{
         return result;
     }
 
+    @RequestMapping(value = ("/find"),method = RequestMethod.GET)
+    @ResponseBody
+    public Map find(HttpServletRequest Request)
+    {
+        Map<String, Object> result = new HashMap<String, Object>();
+
+        int id = Integer.parseInt(Request.getParameter("id"));
+
+        if("0".equals(String.valueOf(id)) || "null".equals(String.valueOf(id)) || id <= 0) {
+            result.put("code","500");
+            result.put("message","id is empty");
+            return result;
+        }
+
+        try {
+            Client client = new Client();
+            client.client();
+        }catch (Exception e) {
+            System.out.println(e);
+        }
+
+        Map list = userService.getUserDao().userFirst(id);
+
+        result.put("id",id);
+
+        result.put("item",list);
+
+        return result;
+    }
 
 }

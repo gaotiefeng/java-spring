@@ -14,7 +14,7 @@ public class Client {
     static HttpClient httpClient = HttpClient.newBuilder().build();
 
     public void client() throws Exception {
-        String url = "https://tfuu.cn";
+        String url = "https://www.tfuu.cn/api";
         HttpRequest request = HttpRequest.newBuilder(new URI(url))
                 // 设置Header:
                 .header("User-Agent", "Java HttpClient").header("Accept", "*/*")
