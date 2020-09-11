@@ -19,7 +19,6 @@ public class StringRedis {
     }
     /**
      * 读取缓存
-     *
      * @param key
      * @return
      */
@@ -33,7 +32,7 @@ public class StringRedis {
     }
 
     /**
-     *
+     * 设置
      * @param key
      * @param value
      * @return

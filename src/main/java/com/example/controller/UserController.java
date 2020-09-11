@@ -23,7 +23,7 @@ public class UserController extends BaseController{
     private  StringRedis stringRedis;
 
     /**
-     *
+     * 登录
      * @param Request
      * @return
      */
@@ -39,7 +39,7 @@ public class UserController extends BaseController{
     }
 
     /**
-     *
+     *  注册
      * @return
      */
     @RequestMapping(value = ("/register"), method = RequestMethod.GET)
@@ -63,6 +63,12 @@ public class UserController extends BaseController{
         return result;
     }
 
+    /**
+     * 用户列表
+     * @param Request
+     * @param Response
+     * @return
+     */
     @RequestMapping(value = ("/list"), method = RequestMethod.GET)
     @ResponseBody
     public Map list(HttpServletRequest Request, HttpServletResponse Response) {
@@ -83,9 +89,14 @@ public class UserController extends BaseController{
         return result;
     }
 
+    /**
+     * 用户详情
+     * @param Request
+     * @return
+     */
     @RequestMapping(value = ("/find"),method = RequestMethod.GET)
     @ResponseBody
-    public Map find(HttpServletRequest Request)
+    public Map findByUser(HttpServletRequest Request)
     {
         Map<String, Object> result = new HashMap<String, Object>();
 
