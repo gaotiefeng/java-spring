@@ -30,7 +30,17 @@ public class UserController extends BaseController{
     @RequestMapping(value = ("/login"), method = RequestMethod.GET)
     public Map login(HttpServletRequest Request) {
 
-        return Success("登录成功",Request.getQueryString());
+        String mobile = Request.getParameter("mobile");
+        if("0".equals(String.valueOf(mobile)) || "null".equals(String.valueOf(mobile))) {
+            return Error("用户名不能为空",false);
+        }
+        List user = userService.getUserDao().userMobile(mobile);
+        Object u = user.get(0);
+
+        String password = Request.getParameter("password");
+        
+
+        return Success("登录成功",user);
     }
 
     /**
@@ -88,9 +98,7 @@ public class UserController extends BaseController{
         int id = Integer.parseInt(Request.getParameter("id"));
 
         if("0".equals(String.valueOf(id)) || "null".equals(String.valueOf(id)) || id <= 0) {
-            result.put("code","500");
-            result.put("message","id is empty");
-            return result;
+           return Error("id不能为空",false);
         }
 
         try {
@@ -98,6 +106,7 @@ public class UserController extends BaseController{
             client.client();
         }catch (Exception e) {
             System.out.println(e);
+            return Error("服务器繁忙",false);
         }
 
         Map list = userService.getUserDao().userFirst(id);
