@@ -30,12 +30,7 @@ public class UserController extends BaseController{
     @RequestMapping(value = ("/login"), method = RequestMethod.GET)
     public Map login(HttpServletRequest Request) {
 
-        Map<String, Object> result = new HashMap<String, Object>();
-
-        result.put("code", "0");
-        result.put("items",Request.getQueryString());
-
-        return result;
+        return Success("登录成功",Request.getQueryString());
     }
 
     /**
@@ -55,12 +50,8 @@ public class UserController extends BaseController{
         if(count > 0) {
             message = "注册成功";
         }
-        Map<String, Object> result = new HashMap<String, Object>();
-        result.put("code", "200");
-        result.put("request",Request.getQueryString());
-        result.put("message",message);
 
-        return result;
+        return Success(message,Request.getQueryString());
     }
 
     /**
@@ -77,16 +68,10 @@ public class UserController extends BaseController{
         int offset = Integer.parseInt(Request.getParameter("offset"));
 
         int limit = Integer.parseInt(Request.getParameter("limit"));
-
+        //todo limit is empty
         List list = userService.getUserDao().userList(offset, limit);
 
-        Map<String, Object> result = new HashMap<String, Object>();
-
-        result.put("code", "0");
-        result.put("request",Request.getQueryString());
-        result.put("items",list);
-
-        return result;
+        return Success("查询成功",list);
     }
 
     /**
@@ -117,11 +102,7 @@ public class UserController extends BaseController{
 
         Map list = userService.getUserDao().userFirst(id);
 
-        result.put("id",id);
-
-        result.put("item",list);
-
-        return result;
+        return Success("查询成功",list);
     }
 
 }
