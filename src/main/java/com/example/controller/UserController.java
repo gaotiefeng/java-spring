@@ -35,11 +35,11 @@ public class UserController extends BaseController{
             return Error("用户名不能为空",false);
         }
         List user = userService.getUserDao().userMobile(mobile);
-        if (user.size() == 0) {
+        if (user.size() == 0 || user.isEmpty()) {
             return Error("用户不存在",false);
         }
-        Object u = user.get(0);
 
+        System.out.println(user.iterator());
         String password = Request.getParameter("password");
 
 
