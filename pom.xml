@@ -16,6 +16,8 @@
 
     <properties>
         <java.version>11</java.version>
+        <thymeleaf-spring5.version>3.0.0.RELEASE</thymeleaf-spring5.version>
+        <thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
     </properties>
 
     <dependencies>
@@ -23,6 +25,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+        <!--thymeleaf 布局依赖-->
+        <!--<dependency>
+            <groupId>nz.net.ultraq.thymeleaf</groupId>
+            <artifactId>thymeleaf-layout-dialect</artifactId>
+        </dependency>-->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
