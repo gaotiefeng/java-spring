@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>登录</title>
+<link rel="stylesheet" href="/file/admin/css/style.css">
+<link rel="stylesheet" href="/file/layui/css/layui.css">
+<style>
+    body {
+        background: #9fa29f;
+    }
+    .window{
+        width: 400px;
+        position: absolute;
+        margin-left: -200px;
+        margin-top: -160px;
+        top: 50%;
+        left: 50%;
+        display: block;
+        z-index: 2000;
+        background: #fff;
+        padding: 20px 0;
+    }
+</style>
+</head>
+<body>
+<div class="window" id="controls">
+    <form  class="layui-form">
+        <div class="layui-form-item" style="margin-right: 100px;margin-top: 40px;">
+            <label class="layui-form-label">用户名：</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" >
+            <label class="layui-form-label">密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+            </label>
+            <input  type="checkbox" name="time" title="保持登录7天" lay-skin="primary">
+        </div>
+        <div class="layui-form-item">
+            <div style="text-align: center;">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">登&nbsp;&nbsp;&nbsp;录</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+<script src="/file/layui/layui.js"></script>
+<script src="/file/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+<!--登录-->
+<script src="/file/admin/js/index.js"></script>
+<script src="/file/admin/js/p5.min.js"></script>
+<script>
+    layui.use(['form'], function(){
+        var form = layui.form;
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            layer.msg(JSON.stringify(data.field));
+            $.ajax({
+                url: "/admin-login",
+                type: 'POST',
+                data: data.field,
+                async: false,
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    if (data.code == 200) {
+                        layer.msg('登录成功',{icon: 6},{
+                            time: 1000,
+                        });
+                        //window.location.href = "";
+
+                    }else {
+                        layer.msg(data.msg,{icon: 5},{
+                            time: 2000
+                        });
+                    }
+                },
+                error:function(data){
+                    layer.msg('登录失败',{icon: 5},{
+                        time: 2000
+                    });
+                }
+            });
+            return false;
+        });
+    });
+</script>

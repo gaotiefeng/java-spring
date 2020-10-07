@@ -1,0 +1,5 @@
+canvas { display:block; }
+#controls {
+  z-index: 2;
+  position: absolute;
+}

@@ -96,8 +96,6 @@ public class UserController extends BaseController{
     @ResponseBody
     public Map findByUser(HttpServletRequest Request)
     {
-        Map<String, Object> result = new HashMap<String, Object>();
-
         int id = Integer.parseInt(Request.getParameter("id"));
 
         if("0".equals(String.valueOf(id)) || "null".equals(String.valueOf(id)) || id <= 0) {
