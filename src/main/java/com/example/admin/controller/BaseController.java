@@ -1,10 +1,23 @@
 package com.example.admin.controller;
 
+import org.springframework.util.DigestUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class BaseController {
 
+    public String salt = "abcdefghijklmnopqrstuvwxyz12345678910";
+    /**
+     * md5加密
+     * @param password
+     * @return
+     */
+    public String EncodeByMd5(String password) {
+        String saltPassword=this.salt+"/"+password;
+        String md5Password = DigestUtils.md5DigestAsHex(saltPassword.getBytes());
+        return md5Password;
+    }
     /* api 返回值 */
     public Map apiSuccess(String msg, Object data)
     {
