@@ -63,7 +63,7 @@
         var form = layui.form;
         //监听提交
         form.on('submit(formDemo)', function(data){
-            layer.msg(JSON.stringify(data.field));
+            //layer.msg(JSON.stringify(data.field));
             $.ajax({
                 url: "/admin-login",
                 type: 'POST',
@@ -76,7 +76,7 @@
                         layer.msg('登录成功',{icon: 6},{
                             time: 1000,
                         });
-                        //window.location.href = "";
+                        window.location.href = "/admin-main";
 
                     }else {
                         layer.msg(data.msg,{icon: 5},{
