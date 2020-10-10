@@ -24,7 +24,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         System.out.println("----admin-login----");
         System.out.println(adminUsername);
         if(adminUsername == null){
-            System.out.println("----admin-login1----");
             //没有登录成功，跳转到登录页面
             response.sendRedirect("/admin");
         }
