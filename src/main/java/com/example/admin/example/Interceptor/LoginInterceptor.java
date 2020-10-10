@@ -1,6 +1,5 @@
 package com.example.admin.example.Interceptor;
 
-import org.springframework.amqp.rabbit.listener.adapter.HandlerAdapter;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
