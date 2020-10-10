@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>后台管理</title>
+<link rel="stylesheet" href="/file/layui/css/layui.css">
+<script src="/file/layui/layui.js"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+<!--头部-->
+<header th:replace="/public/header :: header"></header>
+<!--左侧-->
+<left th:replace="/public/left :: left"></left>
+
+<div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div class="layui-tab-content" style="margin-top: 60px;">
+        <div class="layui-tab-item layui-show">
+            <button class="layui-btn layui-btn-normal">
+                <a style="color:white;" href="/admin/article-class-add">添加分类</a>
+            </button>
+            <table id="demo" lay-filter="test"></table>
+        </div>
+    </div>
+</div>
+<!--低部-->
+<footer th:replace="/public/footer :: footer"></footer>
+
+</div>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,height: 500
+            ,id:'demo_ex'
+            ,title:'产品列表'
+            ,method:"POST"
+            ,url: '/admin/article-class-list' //数据接口/
+            ,where:{type:1}
+            ,page: true //开启分页
+            ,cols: [
+                [ //表头
+                {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                ,{field: 'class_name', title: '分类名称', width:100}
+                ,{field: 'sort', title: '排序', width:100}
+                ,{field: '', title: '操作', toolbar:"#bar"}
+                ]
+            ],
+            done: function(res, curr, count){
+                d0Data = res.data
+                pageCurr = curr;
+            }
+        });
+        table.on('tool(test)',function (obj) {
+            layev = obj.event;
+            id = obj.data.id;
+            if (layev == 'del') {
+                layui.use('layer',function(){
+                    var layer = layui.layer;
+                    layer.msg('你确定删除么？', {
+                        time: 60000 ,//2秒自动关闭
+                        btn: ['确定', '取消'],
+                        yes: function(index){
+                            console.log(id);
+                            $.ajax({
+                                url:"/admin/article-class-del",
+                                data:{'id':id},
+                                type:"Post",
+                                dataType:"json",
+                                success:function(data){
+                                    console.log(data);
+                                    if (data.code == 200) {
+                                        obj.del();
+                                        layer.msg('删除成功',{icon: 6});
+                                    }else {
+                                        layer.msg('删除失败',{icon: 5});
+                                    }
+                                },
+                                error:function(data){
+                                    layer.msg('删除失败',{icon: 5});
+                                }
+                            });
+                            layer.close(index);
+                        }
+                    });
+                });
+            }else if (layev == 'edit') {
+                layui.use('layer',function(){
+                    window.location.href = "/admin/article-class-add?id="+id;
+                });
+
+            }
+        })
+    });
+</script>
+<script type="text/html" id="bar">
+    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="edit">编辑</button>
+    <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</button>
+</script>
+
+</body>
+</html>

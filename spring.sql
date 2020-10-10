@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-10-10 12:19:00
+Date: 2020-10-10 13:46:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,6 +32,41 @@ CREATE TABLE `admin` (
 -- Records of admin
 -- ----------------------------
 INSERT INTO `admin` VALUES ('1', 'admin', null, 'af266b2585fd7e0af474548b6b722411', null);
+
+-- ----------------------------
+-- Table structure for article
+-- ----------------------------
+DROP TABLE IF EXISTS `article`;
+CREATE TABLE `article` (
+  `article_id` int(10) NOT NULL,
+  `title` varchar(64) NOT NULL,
+  `class_id` int(10) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `content` text,
+  `click` int(10) DEFAULT '10',
+  `created_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`article_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of article
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for article_class
+-- ----------------------------
+DROP TABLE IF EXISTS `article_class`;
+CREATE TABLE `article_class` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `class_name` varchar(64) NOT NULL DEFAULT '0',
+  `pid` int(10) DEFAULT NULL,
+  `sort` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of article_class
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for user

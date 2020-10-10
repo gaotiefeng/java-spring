@@ -21,9 +21,24 @@ public class BaseController {
 
 
     /* api 返回值 */
+    public Map apiSuccess(String msg, Object data,int count)
+    {
+        int code = 0;
+
+        Map<String, Object> result = new HashMap<String, Object>();
+
+        result.put("code", code);
+        result.put("msg",msg);
+        result.put("data",data);
+        result.put("count",count);
+
+        return result;
+    }
+
     public Map apiSuccess(String msg, Object data)
     {
-        int code = 200;
+        int code = 0;
+
         Map<String, Object> result = new HashMap<String, Object>();
 
         result.put("code", code);
@@ -35,11 +50,13 @@ public class BaseController {
 
     public Map apiSuccess(Integer code, String msg,Object data)
     {
+        int count = 0;
         Map<String, Object> result = new HashMap<String, Object>();
 
         result.put("code", code);
         result.put("msg",msg);
         result.put("data",data);
+        result.put("count",count);
 
         return result;
     }
