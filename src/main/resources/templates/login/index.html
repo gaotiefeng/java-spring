@@ -65,7 +65,7 @@
         form.on('submit(formDemo)', function(data){
             //layer.msg(JSON.stringify(data.field));
             $.ajax({
-                url: "/admin-login",
+                url: "/admin/login",
                 type: 'POST',
                 data: data.field,
                 async: false,
@@ -76,7 +76,7 @@
                         layer.msg('登录成功',{icon: 6},{
                             time: 1000,
                         });
-                        window.location.href = "/admin-main";
+                        window.location.href = "/admin/main";
 
                     }else {
                         layer.msg(data.msg,{icon: 5},{

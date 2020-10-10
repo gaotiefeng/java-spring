@@ -1,4 +1,4 @@
-package com.example.admin.controller;
+package com.example.admin.example.controller;
 
 import org.springframework.util.DigestUtils;
 
@@ -18,6 +18,8 @@ public class BaseController {
         String md5Password = DigestUtils.md5DigestAsHex(saltPassword.getBytes());
         return md5Password;
     }
+
+
     /* api 返回值 */
     public Map apiSuccess(String msg, Object data)
     {

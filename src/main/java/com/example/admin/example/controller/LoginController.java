@@ -1,20 +1,21 @@
-package com.example.admin.controller;
+package com.example.admin.example.controller;
 
+import com.example.admin.example.controller.BaseController;
 import com.example.model.Admin;
 import com.example.service.admin.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
-public class LoginController extends BaseController{
+public class LoginController extends BaseController {
 
     @Autowired
     private AdminService adminService;
@@ -39,7 +40,7 @@ public class LoginController extends BaseController{
      * 登录验证
      * @return
      */
-    @RequestMapping(value = ("/admin-login"),method = RequestMethod.POST)
+    @RequestMapping(value = ("/admin/login"),method = RequestMethod.POST)
     @ResponseBody
     public Map login(HttpServletRequest Request)
     {
@@ -55,16 +56,22 @@ public class LoginController extends BaseController{
         if (!EncodeByMd5(password).equals(admin.getPassword())) {
             return apiError("密码错误",true);
         }
+        HttpSession session = Request.getSession();
+        session.setAttribute("adminId",id);
+        session.setAttribute("adminUsername",username);
+        String sessionId = session.getId();
+        session.setAttribute("sessionId",sessionId);
+        session.setMaxInactiveInterval(60*60);
 
-        return apiSuccess("登录成功",true);
+        return apiSuccess("登录成功",sessionId);
     }
     /**
      * 主页
      * @param map
      * @return
      */
-    @RequestMapping("/admin-main")
-    public String main(ModelMap map)
+    @RequestMapping("/admin/main")
+    public String main(HttpServletRequest request,HttpServletResponse Response,ModelMap map)
     {
         map.addAttribute("name","this is main");
         return "index";
