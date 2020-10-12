@@ -45,6 +45,8 @@ public class ArticleController extends BaseController{
         return apiSuccess("分类列表",data,count);
     }
 
+    //分类编辑页面
+    @RequestMapping(value = ("/articl-class-edit"))
     public String ClassEdit(HttpServletRequest request,ModelMap map)
     {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -52,7 +54,7 @@ public class ArticleController extends BaseController{
         ArticleClassModel articleClass = this.articleService.getArticleClassDao().articleClassFirst(id);
 
         map.addAttribute("class_name",articleClass.getClassName());
-        
+
         return "article/class_edit";
     }
 }
