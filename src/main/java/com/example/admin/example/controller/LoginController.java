@@ -1,6 +1,6 @@
 package com.example.admin.example.controller;
 
-import com.example.model.Admin;
+import com.example.model.AdminModel;
 import com.example.service.admin.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,7 +46,7 @@ public class LoginController extends BaseController {
         String username = Request.getParameter("username").toString();
         String password = Request.getParameter("password");
 
-        Admin admin = adminService.getAdminDao().adminUser(username);
+        AdminModel admin = adminService.getAdminDao().adminUser(username);
         int id = admin.getId();
         if ("0".equals(String.valueOf(id)) || "null".equals(String.valueOf(id)) || id <= 0) {
             return apiError("用户不存在",true);

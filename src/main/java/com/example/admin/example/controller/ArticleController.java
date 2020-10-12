@@ -1,6 +1,6 @@
 package com.example.admin.example.controller;
 
-import com.example.dao.ArticleClassDao;
+import com.example.model.ArticleClassModel;
 import com.example.service.admin.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,4 +45,14 @@ public class ArticleController extends BaseController{
         return apiSuccess("分类列表",data,count);
     }
 
+    public String ClassEdit(HttpServletRequest request,ModelMap map)
+    {
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        ArticleClassModel articleClass = this.articleService.getArticleClassDao().articleClassFirst(id);
+
+        map.addAttribute("class_name",articleClass.getClassName());
+        
+        return "article/class_edit";
+    }
 }

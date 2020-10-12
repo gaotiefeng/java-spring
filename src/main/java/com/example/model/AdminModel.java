@@ -1,6 +1,6 @@
 package com.example.model;
 
-public class Admin {
+public class AdminModel {
 
     private int id;
     private String username;
