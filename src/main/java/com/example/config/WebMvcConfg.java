@@ -13,7 +13,8 @@ public class WebMvcConfg implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         //拦截器配置后台登录
         registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/admin/**")
-                .excludePathPatterns("/admin");
+                .excludePathPatterns("/admin")
+                .excludePathPatterns("/admin/login");
         //前台登录
         //registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/home/**");
     }

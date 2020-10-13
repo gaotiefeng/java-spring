@@ -46,15 +46,53 @@ public class ArticleController extends BaseController{
     }
 
     //分类编辑页面
-    @RequestMapping(value = ("/articl-class-edit"))
-    public String ClassEdit(HttpServletRequest request,ModelMap map)
+    @RequestMapping(value = ("/article-class-add"))
+    public String classAdd(HttpServletRequest request,ModelMap map)
+    {
+        String str = request.getParameter("id");
+        
+        if (str != null &&!"".equals(str.trim())) {
+            int id = Integer.parseInt(str);
+
+            ArticleClassModel articleClass = this.articleService.getArticleClassDao().articleClassFirst(id);
+
+            map.addAttribute("class_name",articleClass.getClassName());
+            map.addAttribute("sort",articleClass.getSort());
+            map.addAttribute("id",articleClass.getId());
+        }
+
+        return "article/class_edit";
+    }
+
+    //更新添加分类
+    @RequestMapping(value = ("/article-class-save"),method = RequestMethod.POST)
+    @ResponseBody
+    public Map classSaveData(HttpServletRequest request)
+    {
+        int id = 0;
+        String str = request.getParameter("id");
+        if (str != null &&!"".equals(str.trim())) {
+            System.out.println(str);
+            id = Integer.parseInt(str);
+        }
+
+        String className = request.getParameter("class_name");
+        int sort = Integer.parseInt(request.getParameter("sort"));
+
+        int res = this.articleService.classSave(id,sort,className);
+
+        return this.apiSuccess("更新成功",res);
+    }
+
+    //删除分类
+    @RequestMapping(value = ("/article-class-del"),method = RequestMethod.POST)
+    @ResponseBody
+    public Map classDel(HttpServletRequest request)
     {
         int id = Integer.parseInt(request.getParameter("id"));
 
-        ArticleClassModel articleClass = this.articleService.getArticleClassDao().articleClassFirst(id);
+        int res = this.articleService.getArticleClassDao().articleClassDelete(id);
 
-        map.addAttribute("class_name",articleClass.getClassName());
-
-        return "article/class_edit";
+        return this.apiSuccess("删除成功",res);
     }
 }

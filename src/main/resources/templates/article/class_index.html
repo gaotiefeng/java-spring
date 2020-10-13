@@ -74,7 +74,7 @@
                                 dataType:"json",
                                 success:function(data){
                                     console.log(data);
-                                    if (data.code == 200) {
+                                    if (data.code == 0) {
                                         obj.del();
                                         layer.msg('删除成功',{icon: 6});
                                     }else {

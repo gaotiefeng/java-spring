@@ -17,6 +17,7 @@ public class ArticleClassDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    //查询数据
     public ArticleClassModel articleClassFirst(int id)
     {
         String sql = "select * from article_class where id = ?;";
@@ -58,5 +59,46 @@ public class ArticleClassDao {
     public int articleClassCount()
     {
         return this.jdbcTemplate.queryForObject("select count(1) from article_class", Integer.class);
+    }
+    //插入
+    public int articleClassInsert(ArticleClassModel classModel)
+    {
+        //1.创建sql语句
+        String sql = "insert into article_class(id,class_name,sort) values(?,?,?)";
+        //2.调用方法实现
+        Object[] args = {classModel.getClassName(), classModel.getSort(), classModel.getId()};
+        int i = jdbcTemplate.update(sql, args);
+        System.out.println(i);
+        return i;
+    }
+    /**
+     * 添加|更新 sql
+     * @param classModel
+     */
+    public int articleClassSave(ArticleClassModel classModel)
+    {
+        //1.创建sql语句
+        String sql;
+        if (classModel.getId() == 0) {
+             sql = "insert into article_class(class_name,sort,id) values(?,?,?)";
+        }else {
+             sql = "update article_class set class_name=?,sort=? where id=?";
+        }
+        //2.调用方法实现
+        Object[] args = {classModel.getClassName(), classModel.getSort(), classModel.getId()};
+        int i = jdbcTemplate.update(sql, args);
+        System.out.println(i);
+        return i;
+    }
+
+    //删除文章分类
+    public int articleClassDelete(int id) {
+        //1.创建sql语句
+        String sql = "delete from article_class where id=?";
+        //2.调用方法实现
+
+        int i = jdbcTemplate.update(sql, id);
+        System.out.println(i);
+        return i;
     }
 }
