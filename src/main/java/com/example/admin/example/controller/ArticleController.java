@@ -20,6 +20,7 @@ public class ArticleController extends BaseController{
     @Autowired
     private ArticleService articleService;
 
+    //文章分类列表
     @RequestMapping(value = ("/article-class-index"), method = RequestMethod.GET)
     public String classIndex(ModelMap map)
     {
